@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Glorvia Model Viewer</title>
+    </head>
+    <body>
+        <babylon
+            configuration.payload='{
+                "templates": { "main": { "params": { "fillScreen": true } }, "loadingScreen": { "location": "#loading-screen", "params": { "backgroundColor": "#000000" } }, "navBar": { "params": { "hideLogo": true, "hideFullscreen": true } } },
+                "engine": { "antialiasing": true, "hdEnabled": true, "adaptiveQuality": true },
+                "optimizer": { "targetFrameRate": 60 },
+                
+                "camera": {
+                    "behaviors": {
+                        "autoRotate": {
+                            "type": 0
+                        },
+                        "framing": {
+                            "type": 2,
+                            "zoomOnBoundingInfo": true,
+                            "zoomStopsAnimation": true
+                        }
+                    }
+                },
+                "environmentMap": {
+                    "mainColor": { "r": 0.89020, "g": 0.95686, "b": 0.99216 }
+                }
+            }'
+            extends="default"
+        >
