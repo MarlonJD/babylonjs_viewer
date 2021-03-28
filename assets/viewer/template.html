@@ -11,8 +11,13 @@
             configuration.payload='{
                 "templates": { "main": { "params": { "fillScreen": true } }, "loadingScreen": { "location": "#loading-screen", "params": { "backgroundColor": "#000000" } }, "navBar": { "params": { "hideLogo": true, "hideFullscreen": true } } },
                 "engine": { "antialiasing": true, "hdEnabled": true, "adaptiveQuality": true },
-                "optimizer": { "targetFrameRate": 60 },
-                
+                "optimizer": { "targetFrameRate": 30 },
+                "ground": {
+                    "receiveShadows": false,
+                    "mirror": false
+                },
+                "skybox": {},
+                "ground": false,
                 "camera": {
                     "behaviors": {
                         "autoRotate": {
