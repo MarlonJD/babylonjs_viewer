@@ -19,19 +19,22 @@
                 "skybox": {},
                 "ground": false,
                 "camera": {
+                    "exposure": 3.034578,
                     "behaviors": {
                         "autoRotate": {
                             "type": 0
                         },
                         "framing": {
                             "type": 2,
-                            "zoomOnBoundingInfo": true,
-                            "zoomStopsAnimation": true
+                            "zoomStopsAnimation": false
+                        },
+                        "bouncing": {
+                            "type": 1
                         }
                     }
                 },
-                "environmentMap": {
-                    "mainColor": { "r": 0.89020, "g": 0.95686, "b": 0.99216 }
+                "scene": {
+                    "clearColor": { "r": 1, "g": 1, "b": 1, "a": 1 }
                 }
             }'
             extends="default"
