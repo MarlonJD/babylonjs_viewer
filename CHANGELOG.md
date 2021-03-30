@@ -1,3 +1,7 @@
+## [0.0.5] - TODO: Add release date.
+
+* Make background plain white
+
 ## [0.0.4] - TODO: Add release date.
 
 * Add example use to readme
