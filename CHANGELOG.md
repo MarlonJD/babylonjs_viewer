@@ -1,3 +1,7 @@
+## [0.0.51] - TODO: Add release date.
+
+* Fix issue that Model was not render on 0.0.5
+
 ## [0.0.5] - TODO: Add release date.
 
 * Make background plain white
