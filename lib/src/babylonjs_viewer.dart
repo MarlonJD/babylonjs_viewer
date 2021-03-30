@@ -103,6 +103,23 @@ class _BabylonJSViewerState extends State<BabylonJSViewer> {
           await response.close();
           break;
 
+        case '/bg_nx.jpg':
+        case '/bg_ny.jpg':
+        case '/bg_nz.jpg':
+        case '/bg_px.jpg':
+        case '/bg_py.jpg':
+        case '/bg_pz.jpg':
+          final code = await _readAsset(
+              'packages/babylonjs_viewer/assets/viewer/bg_nx.jpg');
+          response
+            ..statusCode = HttpStatus.ok
+            ..headers
+                .add("Content-Type", "application/javascript;charset=UTF-8")
+            ..headers.add("Content-Length", code.lengthInBytes.toString())
+            ..add(code);
+          await response.close();
+          break;
+
         case '/modelLink.glb':
           if (url.isAbsolute && !url.isScheme("file")) {
             await response.redirect(url);
