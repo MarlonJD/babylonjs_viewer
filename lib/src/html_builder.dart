@@ -6,7 +6,7 @@ abstract class HTMLBuilder {
   HTMLBuilder._();
 
   static String build(
-      {final String htmlTemplate = '', @required final String src}) {
+      {final String htmlTemplate = '', required final String src}) {
     final html = StringBuffer(htmlTemplate);
     html.writeln("""<model url="${htmlEscape.convert(src)}"></model>""");
     html.write(

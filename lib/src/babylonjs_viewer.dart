@@ -11,8 +11,8 @@ import 'html_builder.dart';
 /// Flutter widget for rendering interactive 3D models.
 class BabylonJSViewer extends StatefulWidget {
   BabylonJSViewer({
-    Key key,
-    @required this.src,
+    Key? key,
+    required this.src,
   }) : super(key: key);
 
   final String src;
@@ -22,8 +22,8 @@ class BabylonJSViewer extends StatefulWidget {
 }
 
 class _BabylonJSViewerState extends State<BabylonJSViewer> {
-  HttpServer _proxy;
-  String url;
+  HttpServer? _proxy;
+  String? url;
 
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _BabylonJSViewerState extends State<BabylonJSViewer> {
   void dispose() {
     super.dispose();
     if (_proxy != null) {
-      _proxy.close(force: true);
+      _proxy!.close(force: true);
       _proxy = null;
     }
   }
@@ -51,11 +51,11 @@ class _BabylonJSViewerState extends State<BabylonJSViewer> {
     return InAppWebView(
       //initialUrl: url,
       onWebViewCreated: (controller) async {
-        final host = _proxy.address.address;
-        final port = _proxy.port;
+        final host = _proxy!.address.address;
+        final port = _proxy!.port;
         final url = "http://$host:$port/";
         print('>>>> BabylonJS Viewer loading url... <$url>'); // DEBUG
-        await controller.loadUrl(url: url);
+        await controller.loadUrl(urlRequest: URLRequest(url: Uri.parse(url)));
       },
       onLoadError: (controller, url, code, message) {
         print(
@@ -74,7 +74,7 @@ class _BabylonJSViewerState extends State<BabylonJSViewer> {
   Future<void> _initProxy() async {
     final url = Uri.parse(widget.src);
     _proxy = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
-    _proxy.listen((final HttpRequest request) async {
+    _proxy!.listen((final HttpRequest request) async {
       final response = request.response;
 
       switch (request.uri.path) {

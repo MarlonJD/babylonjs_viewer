@@ -1,18 +1,18 @@
 name: babylonjs_viewer
 description: 3D Model Rendering with BabylonJS Viewer
-version: 0.0.51
+version: 1.0.0
 author: Burak Karahan
 repository: https://github.com/MarlonJD/babylonjs_viewer
 homepage:
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_inappwebview: ^4.0.0+4
+  flutter_inappwebview: ^5.3.2
 
 dev_dependencies:
   flutter_test:
