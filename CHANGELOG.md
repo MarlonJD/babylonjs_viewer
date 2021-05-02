@@ -1,3 +1,6 @@
+## [1.1.0] - 2nd May, 2021
+Change inappwebview to flutter_webview 
+
 ## [0.0.51] - TODO: Add release date.
 
 * Fix issue that Model was not render on 0.0.5

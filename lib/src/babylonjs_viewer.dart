@@ -5,7 +5,7 @@ import 'dart:typed_data' show Uint8List;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import 'html_builder.dart';
 
 /// Flutter widget for rendering interactive 3D models.
@@ -24,6 +24,7 @@ class BabylonJSViewer extends StatefulWidget {
 class _BabylonJSViewerState extends State<BabylonJSViewer> {
   HttpServer? _proxy;
   String? url;
+  late WebViewController webViewController;
 
   @override
   void initState() {
@@ -48,21 +49,24 @@ class _BabylonJSViewerState extends State<BabylonJSViewer> {
 
   @override
   Widget build(final BuildContext context) {
-    return InAppWebView(
-      //initialUrl: url,
-      onWebViewCreated: (controller) async {
-        final host = _proxy!.address.address;
-        final port = _proxy!.port;
-        final url = "http://$host:$port/";
+    return WebView(
+      javascriptMode: JavascriptMode.unrestricted,
+      javascriptChannels: Set.from([
+        JavascriptChannel(
+            name: 'Print',
+            onMessageReceived: (JavascriptMessage message) {
+              print(message.message);
+            })
+      ]),
+      initialUrl: 'http://${_proxy!.address.address}:${_proxy!.port}/',
+      onWebViewCreated: (controller) {
+        webViewController = controller;
+      },
+      onWebResourceError: (error) {
+        print('>>>> ModelViewer failed to load: ${error}'); // DEBUB
+      },
+      onPageStarted: (url) {
         print('>>>> BabylonJS Viewer loading url... <$url>'); // DEBUG
-        await controller.loadUrl(urlRequest: URLRequest(url: Uri.parse(url)));
-      },
-      onLoadError: (controller, url, code, message) {
-        print(
-            '>>>> ModelViewer failed to load: ${message} (${url} ${code})'); // DEBUB
-      },
-      onConsoleMessage: (controller, consoleMessage) {
-        print('>>>> Console: ${consoleMessage}'); // DEBUB
       },
     );
   }
