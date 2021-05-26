@@ -1,6 +1,22 @@
 # babylonjs_viewer
 
-3D Model viewer with BabylonJS Viewer. This project highly inspired from [model_viewer](https://pub.dev/packages/model_viewer) flutter pub package. Its simple model viewer, next release, json settings will be implented
+3D Model viewer with [BabylonJS Viewer](https://pub.dev/packages/babylonjs_viewer) for Flutter. This project highly inspired from [model_viewer](https://pub.dev/packages/model_viewer) flutter pub package. Its simple model viewer, next release, json settings will be implented
+
+# Pub.dev
+[https://pub.dev/packages/babylonjs_viewer](https://pub.dev/packages/babylonjs_viewer)
+
+# Install
+This will add a line like this to your package's pubspec.yaml (and run an implicit dart pub get):
+```
+dependencies:
+  babylonjs_viewer: ^1.1.0
+```
+
+# Import it
+Now in your Dart code, you can use:
+```
+import 'package:babylonjs_viewer/babylonjs_viewer.dart';
+```
 
 # Using
 ```
