@@ -12,6 +12,32 @@ dependencies:
   babylonjs_viewer: ^1.1.0
 ```
 
+On your Android Project (android/app/build.gradle) set the "minSdkVersion" to 19
+```
+defaultConfig {
+        applicationId "com.example.example"
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
+```
+
+Then add the line "android:usesCleartextTraffic="true"" to your android manifest (android/app/src/main/AndroidManifest.xml)
+```
+<application
+        android:label="example"
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
+```
+
+On your iOS Project go to the info.plist file (ios/Runner/Info.plist) and add the following line
+```
+<key>io.flutter.embedded_views_preview</key>
+<true/>
+```
+
+
 # Import it
 Now in your Dart code, you can use:
 ```
