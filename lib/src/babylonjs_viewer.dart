@@ -6,6 +6,7 @@ import 'dart:typed_data' show Uint8List;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:webview_flutter/webview_flutter.dart';
+
 import 'html_builder.dart';
 
 /// Flutter widget for rendering interactive 3D models.
@@ -49,26 +50,32 @@ class _BabylonJSViewerState extends State<BabylonJSViewer> {
 
   @override
   Widget build(final BuildContext context) {
-    return WebView(
-      javascriptMode: JavascriptMode.unrestricted,
-      javascriptChannels: Set.from([
-        JavascriptChannel(
-            name: 'Print',
-            onMessageReceived: (JavascriptMessage message) {
-              print(message.message);
-            })
-      ]),
-      initialUrl: 'http://${_proxy!.address.address}:${_proxy!.port}/',
-      onWebViewCreated: (controller) {
-        webViewController = controller;
-      },
-      onWebResourceError: (error) {
-        print('>>>> ModelViewer failed to load: ${error}'); // DEBUB
-      },
-      onPageStarted: (url) {
-        print('>>>> BabylonJS Viewer loading url... <$url>'); // DEBUG
-      },
-    );
+    if (_proxy != null) {
+      return WebView(
+        javascriptMode: JavascriptMode.unrestricted,
+        javascriptChannels: Set.from([
+          JavascriptChannel(
+              name: 'Print',
+              onMessageReceived: (JavascriptMessage message) {
+                print(message.message);
+              })
+        ]),
+        initialUrl: 'http://${_proxy!.address.address}:${_proxy!.port}/',
+        onWebViewCreated: (controller) {
+          webViewController = controller;
+        },
+        onWebResourceError: (error) {
+          print('>>>> ModelViewer failed to load: ${error}'); // DEBUB
+        },
+        onPageStarted: (url) {
+          print('>>>> BabylonJS Viewer loading url... <$url>'); // DEBUG
+        },
+      );
+    } else {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
   }
 
   String _buildHTML(final String htmlTemplate) {
@@ -153,6 +160,7 @@ class _BabylonJSViewerState extends State<BabylonJSViewer> {
           break;
       }
     });
+    setState(() {});
   }
 
   Future<Uint8List> _readAsset(final String key) async {
