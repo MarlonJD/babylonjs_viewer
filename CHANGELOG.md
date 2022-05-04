@@ -1,3 +1,9 @@
+## [1.1.2] - 5th May, 2022
+Change babylon.viewer.js with updated version
+
+## [1.1.1] - 17th June, 2021
+Temporary bugfix from MIGMLG
+
 ## [1.1.0] - 2nd May, 2021
 Change inappwebview to flutter_webview 
 
