@@ -1,3 +1,9 @@
+## [1.1.4] - 10th May, 2022
+Disable skybox on viewer
+
+## [1.1.3] - 5th May, 2022
+Disable extends default on viewer
+
 ## [1.1.2] - 5th May, 2022
 Change babylon.viewer.js with updated version
 
