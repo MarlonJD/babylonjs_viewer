@@ -14,9 +14,11 @@ class BabylonJSViewer extends StatefulWidget {
   BabylonJSViewer({
     Key? key,
     required this.src,
+    this.controller,
   }) : super(key: key);
 
   final String src;
+  final ValueChanged<WebViewController>? controller;
 
   @override
   State<BabylonJSViewer> createState() => _BabylonJSViewerState();
@@ -25,7 +27,6 @@ class BabylonJSViewer extends StatefulWidget {
 class _BabylonJSViewerState extends State<BabylonJSViewer> {
   HttpServer? _proxy;
   String? url;
-  late WebViewController webViewController;
 
   @override
   void initState() {
@@ -52,6 +53,8 @@ class _BabylonJSViewerState extends State<BabylonJSViewer> {
   Widget build(final BuildContext context) {
     if (_proxy != null) {
       return WebView(
+        debuggingEnabled: true,
+        backgroundColor: Colors.white,
         javascriptMode: JavascriptMode.unrestricted,
         javascriptChannels: Set.from([
           JavascriptChannel(
@@ -62,7 +65,11 @@ class _BabylonJSViewerState extends State<BabylonJSViewer> {
         ]),
         initialUrl: 'http://${_proxy!.address.address}:${_proxy!.port}/',
         onWebViewCreated: (controller) {
-          webViewController = controller;
+          if (widget.controller != null) {
+            setState(() {
+              widget.controller!(controller);
+            });
+          }
         },
         onWebResourceError: (error) {
           print('>>>> ModelViewer failed to load: ${error}'); // DEBUB

@@ -7,7 +7,41 @@
         <title>Glorvia Model Viewer</title>
     </head>
     <body>
-        <babylon
+        <script>   
+           function setTexture(texture) {
+                let viewer = BabylonViewer.viewerManager.getViewerById('viewer-id');
+                viewer.sceneManager.scene.meshes[5].material.albedoTexture.updateURL(texture);
+                viewer.sceneManager.scene.meshes[6].material.albedoTexture.updateURL(texture);
+                viewer.sceneManager.scene.meshes[7].material.albedoTexture.updateURL(texture);
+                viewer.sceneManager.scene.meshes[8].material.albedoTexture.updateURL(texture);
+           }
+   
+           function setNormal(texture) {
+               let viewer = BabylonViewer.viewerManager.getViewerById('viewer-id');
+               viewer.sceneManager.scene.meshes[5].material.albedoTexture.updateURL(texture);
+               viewer.sceneManager.scene.meshes[6].material.bumpTexture.updateURL(texture);
+               viewer.sceneManager.scene.meshes[7].material.bumpTexture.updateURL(texture);
+               viewer.sceneManager.scene.meshes[8].material.bumpTexture.updateURL(texture);
+           }
+            
+           function changeColor(r,g,b) {
+               let viewer = BabylonViewer.viewerManager.getViewerById('viewer-id');
+               viewer.sceneManager.scene.meshes[14].material.albedoColor.copyFromFloats(r,g,b);
+                viewer.sceneManager.scene.meshes[15].material.albedoColor.copyFromFloats(r,g,b);
+               viewer.sceneManager.scene.meshes[16].material.albedoColor.copyFromFloats(r,g,b);
+               viewer.sceneManager.scene.meshes[17].material.albedoColor.copyFromFloats(r,g,b);
+               viewer.sceneManager.scene.meshes[18].material.albedoColor.copyFromFloats(r,g,b);
+               viewer.sceneManager.scene.meshes[19].material.albedoColor.copyFromFloats(r,g,b);
+           }
+   
+           function changeModel(url) {
+               let viewer = BabylonViewer.viewerManager.getViewerById('viewer-id');
+               viewer.loadModel({
+                   url: url
+               });
+           }
+        </script>
+        <babylon id="viewer-id"
             configuration.payload='{
                 "templates": { "main": { "params": { "fillScreen": true } }, "loadingScreen": { "location": "#loading-screen", "params": { "backgroundColor": "#E8E8E8" } }, "navBar": { "params": { "hideLogo": true, "hideFullscreen": true } } },
                 "engine": { "antialiasing": true, "hdEnabled": true, "adaptiveQuality": true },
