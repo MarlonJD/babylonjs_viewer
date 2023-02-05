@@ -9,9 +9,21 @@
 This will add a line like this to your package's pubspec.yaml (and run an implicit dart pub get):
 ```
 dependencies:
-  babylonjs_viewer: ^1.1.0
+  babylonjs_viewer: ^1.2.0
 ```
 
+### What's new in 1.2.0
+ - Upgrade babylon.viewer.js (v5.16.0)
+ - Add new parameter controller (WebViewController)
+ - Add new parameter functions (Minified Javascript)
+
+#### Why I need Controller
+Controller is optional. You can use this controller for run Javascript code, go back, get current url, change url and many others that WebView Flutter can allow. 
+Functions is optional. You can use this parameter for add javascript code to your viewer.
+Examples can be found at bottom of this [document](https://github.com/MarlonJD/babylonjs_viewer/edit/main/README.md#controller-and-function-example)
+
+
+# Requirements
 On your Android Project (android/app/build.gradle) set the "minSdkVersion" to 19
 ```
 defaultConfig {
@@ -79,15 +91,66 @@ import 'package:babylonjs_viewer/babylonjs_viewer.dart';
   BabylonJSViewer(
     src: 'assets/MyModel.glb',
   ),
-```  
+``` 
 
-## Getting Started
+### Controller and Function Example
+Add this to your state
+```
+WebViewController? _controller;
+```
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+Add your custom javascript functions. This will print to your flutter console.
+```
+BabylonJSViewer(
+  controller: (WebViewController controller) {
+    _controller = controller;
+  },
+  functions:
+      '''function sayHello() { Print.postMessage("Hello World!"); }''',
+  src:
+      'https://models.babylonjs.com/boombox.glb',
+),
+```
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+Use this function wherever you want
+```
+ElevatedButton(
+  onPressed: () {
+      _controller?.runJavascript('''
+sayHello();
+''');
+  },
+  child: const Text("Run Function")),
+```
+
+### Use case for Controller and Function
+
+You can access to viewer variable of babylonjs viewer. You can found all methods on [there](https://github.com/BabylonJS/Babylon.js/blob/master/packages/tools/viewer/src/viewer/viewer.ts)
+
+In this example show you that how you can toggle auto rotate.
+```
+BabylonJSViewer(
+  controller: (WebViewController controller) {
+    _controller = controller;
+  },
+  functions: '''
+function toggleAutoRotate(texture) {
+let viewer = BabylonViewer.viewerManager.getViewerById('viewer-id');
+viewer.sceneManager.camera.useAutoRotationBehavior = !viewer.sceneManager.camera.useAutoRotationBehavior
+}
+''',
+  src:
+      'https://models.babylonjs.com/boombox.glb',
+),
+```
+
+use this function
+```
+ElevatedButton(
+  onPressed: () {
+      _controller?.runJavascript('''
+toggleAutoRotate();
+''');
+  },
+  child: const Text("Toggle")),
+```
