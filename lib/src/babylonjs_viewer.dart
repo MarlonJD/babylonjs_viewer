@@ -15,10 +15,12 @@ class BabylonJSViewer extends StatefulWidget {
     Key? key,
     required this.src,
     this.controller,
+    this.functions,
   }) : super(key: key);
 
   final String src;
   final ValueChanged<WebViewController>? controller;
+  final String? functions;
 
   @override
   State<BabylonJSViewer> createState() => _BabylonJSViewerState();
@@ -86,7 +88,10 @@ class _BabylonJSViewerState extends State<BabylonJSViewer> {
   }
 
   String _buildHTML(final String htmlTemplate) {
-    return HTMLBuilder.build(htmlTemplate: htmlTemplate, src: '/modelLink.glb');
+    return HTMLBuilder.build(
+        htmlTemplate: htmlTemplate,
+        src: '/modelLink.glb',
+        functions: widget.functions);
   }
 
   Future<void> _initProxy() async {
