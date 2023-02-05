@@ -1,3 +1,8 @@
+## [1.2.0] - 5th Feb, 2023
+Upgrade babylon.viewer.js (v5.16.0)
+Add new parameter controller (WebViewController)
+Add new parameter functions (Javascript)
+
 ## [1.1.4] - 10th May, 2022
 Disable skybox on viewer
 
