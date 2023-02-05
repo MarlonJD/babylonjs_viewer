@@ -1,7 +1,5 @@
 import 'dart:convert' show htmlEscape;
 
-import 'package:flutter/material.dart';
-
 abstract class HTMLBuilder {
   HTMLBuilder._();
 
