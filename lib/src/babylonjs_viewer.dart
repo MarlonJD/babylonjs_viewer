@@ -1,6 +1,6 @@
 import 'dart:convert' show utf8;
 import 'dart:io'
-    show File, HttpRequest, HttpServer, HttpStatus, InternetAddress, Platform;
+    show File, HttpRequest, HttpServer, HttpStatus, InternetAddress;
 import 'dart:typed_data' show Uint8List;
 
 import 'package:flutter/material.dart';
@@ -48,7 +48,6 @@ class _BabylonJSViewerState extends State<BabylonJSViewer> {
   @override
   void didUpdateWidget(final BabylonJSViewer oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // TODO
   }
 
   @override
