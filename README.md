@@ -20,7 +20,7 @@ dependencies:
 #### Why I need Controller
 Controller is optional. You can use this controller for run Javascript code, go back, get current url, change url and many others that WebView Flutter can allow. 
 Functions is optional. You can use this parameter for add javascript code to your viewer.
-Examples can be found at bottom of this [document](https://github.com/MarlonJD/babylonjs_viewer/edit/main/README.md#controller-and-function-example)
+Examples can be found at bottom of this [document](https://github.com/MarlonJD/babylonjs_viewer#controller-and-function-example)
 
 
 # Requirements
