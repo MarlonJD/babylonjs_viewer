@@ -1,3 +1,6 @@
+## [1.2.1] - 5th Feb, 2023
+Fix readme link issue
+
 ## [1.2.0] - 5th Feb, 2023
 Upgrade babylon.viewer.js (v5.16.0)
 Add new parameter controller (WebViewController)
