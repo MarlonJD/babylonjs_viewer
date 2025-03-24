@@ -1,3 +1,6 @@
+## [1.3.0] - 24th Mar, 2025
+Update dependencies
+
 ## [1.2.1] - 5th Feb, 2023
 Fix readme link issue
 

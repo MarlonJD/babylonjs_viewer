@@ -29,11 +29,39 @@ class BabylonJSViewer extends StatefulWidget {
 class _BabylonJSViewerState extends State<BabylonJSViewer> {
   HttpServer? _proxy;
   String? url;
+  late final WebViewController _webViewController;
 
   @override
   void initState() {
     super.initState();
     _initProxy();
+    _initWebViewController();
+  }
+
+  void _initWebViewController() {
+    _webViewController = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(Colors.white)
+      ..addJavaScriptChannel(
+        'Print',
+        onMessageReceived: (JavaScriptMessage message) {
+          print(message.message);
+        },
+      )
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageStarted: (String url) {
+            print('>>>> BabylonJS Viewer loading url... <$url>'); // DEBUG
+          },
+          onWebResourceError: (WebResourceError error) {
+            print('>>>> ModelViewer failed to load: ${error.description}'); // DEBUG
+          },
+        ),
+      );
+
+    if (widget.controller != null) {
+      widget.controller!(_webViewController);
+    }
   }
 
   @override
@@ -53,34 +81,15 @@ class _BabylonJSViewerState extends State<BabylonJSViewer> {
   @override
   Widget build(final BuildContext context) {
     if (_proxy != null) {
-      return WebView(
-        debuggingEnabled: true,
-        backgroundColor: Colors.white,
-        javascriptMode: JavascriptMode.unrestricted,
-        javascriptChannels: Set.from([
-          JavascriptChannel(
-              name: 'Print',
-              onMessageReceived: (JavascriptMessage message) {
-                print(message.message);
-              })
-        ]),
-        initialUrl: 'http://${_proxy!.address.address}:${_proxy!.port}/',
-        onWebViewCreated: (controller) {
-          if (widget.controller != null) {
-            setState(() {
-              widget.controller!(controller);
-            });
-          }
-        },
-        onWebResourceError: (error) {
-          print('>>>> ModelViewer failed to load: ${error}'); // DEBUB
-        },
-        onPageStarted: (url) {
-          print('>>>> BabylonJS Viewer loading url... <$url>'); // DEBUG
-        },
+      _webViewController.loadRequest(
+        Uri.parse('http://${_proxy!.address.address}:${_proxy!.port}/'),
+      );
+      
+      return WebViewWidget(
+        controller: _webViewController,
       );
     } else {
-      return Center(
+      return const Center(
         child: CircularProgressIndicator(),
       );
     }

@@ -9,13 +9,11 @@
 This will add a line like this to your package's pubspec.yaml (and run an implicit dart pub get):
 ```
 dependencies:
-  babylonjs_viewer: ^1.2.0
+  babylonjs_viewer: ^1.3.0
 ```
 
-### What's new in 1.2.0
- - Upgrade babylon.viewer.js (v5.16.0)
- - Add new parameter controller (WebViewController)
- - Add new parameter functions (Minified Javascript)
+### What's new in 1.3.0
+ - Update dependency to webview_flutter 4.10.0
 
 #### Why I need Controller
 Controller is optional. You can use this controller for run Javascript code, go back, get current url, change url and many others that WebView Flutter can allow. 
@@ -94,8 +92,16 @@ import 'package:babylonjs_viewer/babylonjs_viewer.dart';
 ``` 
 
 ### Controller and Function Example
+Add `webview_flutter` to your pubspec.yaml
+```
+dependencies:
+  webview_flutter: ^4.10.0
+```
+
 Add this to your state
 ```
+import 'package:webview_flutter/webview_flutter.dart';
+
 WebViewController? _controller;
 ```
 
@@ -116,7 +122,7 @@ Use this function wherever you want
 ```
 ElevatedButton(
   onPressed: () {
-      _controller?.runJavascript('''
+      _controller?.runJavaScript('''
 sayHello();
 ''');
   },
